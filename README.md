@@ -69,25 +69,50 @@ implementing the `Filter` interface. The `Filter`s provided by `CoreFilters` are
 
 Allows filtering given resource of type `Map<String,String>`, matching if contains given 
 propertyName as a key
+```java
+user.put("test", "value");
+Filter<Map<String, String>> filter = CoreFilters.containsProperty("test");
+assert filter.matches(user);
+```
 
 #### EqualsToFilter
 
 Allows filtering given resource of type `Map<String,String>`, matching if the resource
 contains the property, and the value is equal to the given value
+```java
+user.put("test", "value");
+Filter<Map<String, String>> filter = CoreFilters.isPropertyEqualTo("test", "value");
+assert filter.matches(user);
+```
 
 #### GreaterThanFilter
 
 Allows filtering given resource of type `Map<String,String>`, matching if the resource
 contains the property, and the value is greater than the given value. Applicable to integer
 types only.
+```java
+user.put("test", "12");
+Filter<Map<String, String>> filter = CoreFilters.isPropertyGreaterThan("test", "10");
+assert filter.matches(user);
+```
 
 #### LessThanFilter
 
 Allows filtering given resource of type `Map<String,String>`, matching if the resource
 contains the property, and the value is less than the given value. Applicable to integer
 types only.
+```java
+user.put("test", "8");
+Filter<Map<String, String>> filter = CoreFilters.isPropertyLessThan("test", "10");
+assert filter.matches(user);
+```
 
 #### RegexPropertyValueFilter
 
 Allows filtering given resource of type `Map<String,String>`, matching if the resource
 contains the property, and the value matches to the given regex pattern.
+```java
+user.put("test", "value with digits 12 in-between");
+Filter<Map<String, String>> filter = CoreFilters.valueMatchesRegex("test", "(.)*(\\d)(.)*");
+assert filter.matches(user);
+```
